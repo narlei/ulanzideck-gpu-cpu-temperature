@@ -16,7 +16,7 @@ jobs:
     # Windows runner needed).
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Read version from manifest
         id: version
@@ -34,12 +34,12 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         if: steps.check.outputs.exists == 'false'
         with:
-          node-version: '20'
+          node-version: '22'
 
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v5
         if: steps.check.outputs.exists == 'false'
         with:
           dotnet-version: '8.0.x'
