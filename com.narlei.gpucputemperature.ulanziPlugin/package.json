@@ -1,6 +1,6 @@
 {
   "name": "gpu-cpu-temperature",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ulanzi Deck plugin that shows CPU and GPU temperature on your deck buttons.",
   "author": "Narlei Moreira",
   "license": "MIT",
