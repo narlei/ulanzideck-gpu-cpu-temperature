@@ -72,7 +72,7 @@ clean:
 
 bump_major bump_minor bump_patch:
 	@TYPE=$$(echo $@ | sed s/bump_//); \
-	cd $(PLUGIN_ID) && npm version $$TYPE --no-git-tag-version --silent 2>/dev/null || echo "No package.json found inside plugin folder."; \
+	(cd $(PLUGIN_ID) && npm version $$TYPE --no-git-tag-version --silent) 2>/dev/null || echo "No package.json found inside plugin folder."; \
 	node -e "\
 		const fs = require('fs'); \
 		const path = '$(PLUGIN_ID)/manifest.json'; \

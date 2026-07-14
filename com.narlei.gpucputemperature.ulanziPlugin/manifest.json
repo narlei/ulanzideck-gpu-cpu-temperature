@@ -3,7 +3,7 @@
   "Name": "GPU & CPU Temperature",
   "Description": "Show your CPU and GPU temperature live on your Ulanzi Deck. Two buttons — one for CPU, one for GPU. Reads thermal sensors locally, no network access. Click a key to switch between °C and °F. On Windows, run Ulanzi Studio as Administrator for full CPU sensor access.",
   "Author": "Narlei Moreira",
-  "Version": "1.0.1",
+  "Version": "1.0.2",
   "Icon": "resources/icon.png",
   "Category": "System",
   "CategoryIcon": "resources/icon.png",
