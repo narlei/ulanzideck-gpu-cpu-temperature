@@ -1,0 +1,73 @@
+name: release-plugin
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    # macOS runner: needed to compile the native Swift thermal helper. The
+    # Windows helper (.NET) is cross-published from here too — self-contained
+    # publish works cross-platform, no Windows runner needed.
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build plugin zip(s)
+        run: |
+          found=0
+          for dir in *.ulanziPlugin; do
+            [ -d "$dir" ] || continue
+            echo "Packaging $dir"
+
+            # Compile the universal, ad-hoc signed macOS thermal helper if present.
+            if [ -f "$dir/helper/thermal.swift" ]; then
+              echo "  building native macOS helper"
+              swiftc -O -target arm64-apple-macos11  -framework IOKit -framework CoreFoundation -o "$dir/helper/thermal.arm64"  "$dir/helper/thermal.swift"
+              swiftc -O -target x86_64-apple-macos11 -framework IOKit -framework CoreFoundation -o "$dir/helper/thermal.x86_64" "$dir/helper/thermal.swift"
+              lipo -create -output "$dir/helper/thermal" "$dir/helper/thermal.arm64" "$dir/helper/thermal.x86_64"
+              rm -f "$dir/helper/thermal.arm64" "$dir/helper/thermal.x86_64"
+              codesign -s - --force "$dir/helper/thermal"
+              chmod +x "$dir/helper/thermal"
+            fi
+
+            # Cross-publish the self-contained Windows thermal helper if present.
+            if [ -f "$dir/helper-windows/ThermalHelper.csproj" ]; then
+              echo "  building native Windows helper"
+              ( cd "$dir/helper-windows" && dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -v quiet )
+              cp "$dir/helper-windows/bin/Release/net8.0/win-x64/publish/thermal.exe" "$dir/helper-windows/thermal.exe"
+              rm -rf "$dir/helper-windows/bin" "$dir/helper-windows/obj"
+            fi
+
+            # Bundle runtime node_modules (ws) so the plugin runs after download.
+            if [ -f "$dir/package.json" ]; then
+              echo "  installing runtime deps"
+              ( cd "$dir" && npm install --omit=dev --no-audit --no-fund )
+            fi
+
+            zip -r "${dir}.zip" "$dir" -x "*.DS_Store" -x "*/thermal.swift" \
+              -x "*/helper-windows/*.csproj" -x "*/helper-windows/*.cs" \
+              -x "*/helper-windows/bin/*" -x "*/helper-windows/obj/*"
+            found=1
+          done
+          if [ "$found" = "0" ]; then
+            echo "No .ulanziPlugin directory found at the repository root" >&2
+            exit 1
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: '*.ulanziPlugin.zip'
+          generate_release_notes: true

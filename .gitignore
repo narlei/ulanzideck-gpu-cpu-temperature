@@ -1,0 +1,13 @@
+.DS_Store
+*.ulanziPlugin.zip
+node_modules/
+dist/
+ulanzi_plugin_example/
+.claude
+
+# Native helper build artifacts (compiled during `make helper`/`make package`
+# or CI, not committed — only the sources are tracked).
+com.narlei.gpucputemperature.ulanziPlugin/helper/thermal
+com.narlei.gpucputemperature.ulanziPlugin/helper-windows/bin/
+com.narlei.gpucputemperature.ulanziPlugin/helper-windows/obj/
+com.narlei.gpucputemperature.ulanziPlugin/helper-windows/thermal.exe

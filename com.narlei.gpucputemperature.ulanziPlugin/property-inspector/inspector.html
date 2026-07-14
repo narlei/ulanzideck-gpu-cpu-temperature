@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover" />
+  <title>GPU & CPU Temperature</title>
+  <link rel="stylesheet" href="../libs/css/uspi.css">
+  <style>
+    .panel { padding: 10px 12px; font-size: 12px; line-height: 1.6; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; margin-bottom: 4px; }
+    .field select { width: 100%; box-sizing: border-box; }
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 10px 0; }
+    .hint { font-size: 11px; opacity: 0.55; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="udpi-wrapper hidden uspi-wrapper">
+    <form id="property-inspector">
+      <div class="panel">
+        <div class="field">
+          <label data-localize="unitLabel">Temperature unit</label>
+          <select id="unit">
+            <option value="C" selected data-localize="unitC">Celsius (°C)</option>
+            <option value="F" data-localize="unitF">Fahrenheit (°F)</option>
+          </select>
+          <p class="hint" data-localize="unitHint">Tip: you can also click the key to toggle the unit.</p>
+        </div>
+        <hr class="divider">
+        <div class="field">
+          <label data-localize="pollIntervalLabel">Update interval</label>
+          <select id="pollInterval">
+            <option value="3000" data-localize="pollInterval3">3 seconds (responsive)</option>
+            <option value="5000" data-localize="pollInterval5">5 seconds</option>
+            <option value="10000" selected data-localize="pollInterval10">10 seconds (balanced)</option>
+            <option value="15000" data-localize="pollInterval15">15 seconds (light)</option>
+            <option value="30000" data-localize="pollInterval30">30 seconds (very light)</option>
+          </select>
+          <p class="hint" data-localize="pollIntervalHint">How often to update temperature readings.</p>
+        </div>
+        <hr class="divider">
+        <p class="hint" data-localize="privacyNote">Temperatures are read locally from your machine's thermal sensors. No network access.</p>
+        <p class="hint" data-localize="windowsAdminNote">Windows: for full CPU sensor access, run Ulanzi Studio as Administrator (right-click → Run as administrator). Without it, the CPU key may show N/A.</p>
+      </div>
+    </form>
+  </div>
+
+  <script src="../libs/js/constants.js"></script>
+  <script src="../libs/js/eventEmitter.js"></script>
+  <script src="../libs/js/timers.js"></script>
+  <script src="../libs/js/utils.js"></script>
+  <script src="../libs/js/ulanziApi.js"></script>
+  <script src="./inspector.js"></script>
+</body>
+</html>

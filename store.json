@@ -1,0 +1,21 @@
+{
+  "cover": "resources/cover.png",
+  "screenshots": [
+    "resources/cover.png",
+    "resources/banner1.png",
+    "resources/banner2.png"
+  ],
+  "longDescription": "Monitor your CPU and GPU temperature straight from your Ulanzi Deck, on Mac or Windows.\n\nAdd two buttons — one for the CPU, one for the GPU — and see the current temperature update live, color-coded from cool green to hot red. Click a key any time to switch between °C and °F. Update interval is configurable per key.\n\nTemperatures are read locally via a tiny native helper — no network access, no cloud service. On macOS this reads on-die thermal sensors directly (same technique used by tools like macmon), no sudo needed; works on Apple Silicon (M1–M4) and Intel Macs. On Windows it uses LibreHardwareMonitorLib (the engine behind HWiNFO); for full CPU sensor access, run Ulanzi Studio as Administrator.",
+  "deviceTypes": [
+    "deck"
+  ],
+  "tags": [
+    "cpu",
+    "gpu",
+    "temperature",
+    "monitor",
+    "system",
+    "mac",
+    "windows"
+  ]
+}

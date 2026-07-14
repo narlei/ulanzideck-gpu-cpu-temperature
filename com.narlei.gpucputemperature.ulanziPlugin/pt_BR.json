@@ -1,0 +1,29 @@
+{
+  "Name": "Temperatura de GPU & CPU",
+  "Description": "Mostre a temperatura da CPU e da GPU ao vivo no Ulanzi Deck. Dois botões — um para CPU, outro para GPU. Clique na tecla para alternar entre °C e °F. No Windows, execute o Ulanzi Studio como Administrador para acesso completo aos sensores da CPU.",
+  "Actions": [
+    {
+      "Name": "Temperatura da CPU",
+      "Tooltip": "Mostra a temperatura da CPU. Clique para alternar °C / °F."
+    },
+    {
+      "Name": "Temperatura da GPU",
+      "Tooltip": "Mostra a temperatura da GPU. Clique para alternar °C / °F."
+    }
+  ],
+  "Localization": {
+    "unitLabel": "Unidade de temperatura",
+    "unitC": "Celsius (°C)",
+    "unitF": "Fahrenheit (°F)",
+    "unitHint": "Dica: você também pode clicar na tecla para alternar a unidade.",
+    "pollIntervalLabel": "Intervalo de atualização",
+    "pollInterval3": "3 segundos (responsivo)",
+    "pollInterval5": "5 segundos",
+    "pollInterval10": "10 segundos (balanceado)",
+    "pollInterval15": "15 segundos (leve)",
+    "pollInterval30": "30 segundos (muito leve)",
+    "pollIntervalHint": "Com que frequência atualizar as leituras de temperatura.",
+    "privacyNote": "As temperaturas são lidas localmente dos sensores térmicos da sua máquina. Sem acesso à rede.",
+    "windowsAdminNote": "Windows: para acesso completo ao sensor da CPU, execute o Ulanzi Studio como Administrador (clique direito → Executar como administrador). Sem isso, a tecla de CPU pode mostrar N/A."
+  }
+}
